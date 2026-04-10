@@ -572,7 +572,9 @@ const startDate = new Date("April 8, 2026");
 let currentMsgIndex = 0;
 
 function updateMsg() {
-  const now = new Date();
+  const now =  new Date(
+  now.toLocaleString("en-US", { timeZone: "Africa/Cairo" })
+);
   const dayDiff = Math.floor((now - startDate) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
   const el = document.getElementById("msg");
