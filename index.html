@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ahmed ❤️ Yomna</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,7 +17,7 @@ body {
   min-height: 100vh;
 }
 
-/* Splash */
+/* ✨ شاشة البداية */
 #splash {
   position: fixed;
   inset: 0;
@@ -36,180 +35,587 @@ body {
   visibility: hidden;
   pointer-events: none;
 }
-
-.splash-title { font-size: 26px; color: #ff4d6d; font-weight: 700; }
-.splash-sub { font-size: 16px; color: #888; }
-
+.splash-title {
+  font-size: 26px;
+  color: #ff4d6d;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.splash-sub {
+  font-size: 16px;
+  color: #888;
+}
+.splash-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
 .splash-dots span {
   width: 8px; height: 8px;
   background: #ff4d6d;
   border-radius: 50%;
-  display: inline-block;
   animation: blink 1.2s infinite;
 }
-
+.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes blink {
-  0%,100%{opacity:0.2}
-  40%{opacity:1}
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.2); }
 }
 
-/* Main */
+/* 🌙 الخلفية النجمية */
+#stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* 🎬 المحتوى */
 #main {
+  position: relative;
+  z-index: 1;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 30px 20px;
+  animation: fadeUp 1s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* 💳 الكارت الرئيسي */
 .card {
-  background: rgba(30,20,30,0.85);
+  background: rgba(30, 20, 30, 0.85);
+  border: 1px solid rgba(255, 77, 109, 0.25);
   padding: 40px 30px;
   border-radius: 28px;
   max-width: 460px;
   width: 100%;
   text-align: center;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(255,77,109,0.3), transparent, rgba(255,77,109,0.1));
+  z-index: -1;
 }
 
-.names { font-size: 32px; color: #ff4d6d; font-weight: 700; }
-.date-label { color: #999; margin: 10px 0 20px; }
+/* 💞 الأسماء */
+.names {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff4d6d;
+  margin-bottom: 6px;
+  text-shadow: 0 0 30px rgba(255,77,109,0.4);
+}
+.date-label {
+  font-size: 15px;
+  color: #999;
+  margin-bottom: 24px;
+}
 
-/* Countdown */
-.time-num { font-size: 26px; color: #ff4d6d; }
+/* 💍 العداد */
+.countdown-box {
+  background: rgba(255, 77, 109, 0.08);
+  border: 1px solid rgba(255, 77, 109, 0.2);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.countdown-label {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+}
+.time-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff4d6d;
+  line-height: 1;
+}
+.time-lbl {
+  font-size: 11px;
+  color: #777;
+  margin-top: 4px;
+}
+.separator {
+  font-size: 24px;
+  color: rgba(255,77,109,0.4);
+  align-self: flex-start;
+  margin-top: 3px;
+}
 
-/* Message */
+/* 💌 الرسالة */
 .message-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
   margin-top: 20px;
-  padding: 15px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.message-text {
+  font-size: 17px;
+  color: #f0e6ff;
+  line-height: 1.6;
+  animation: msgFade 0.5s ease;
+}
+@keyframes msgFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Heart */
+/* 🔢 رقم الرسالة */
+.msg-counter {
+  font-size: 12px;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* ❤️ قلوب عائمة */
 .heart {
   position: fixed;
   bottom: -30px;
+  font-size: 18px;
+  pointer-events: none;
   animation: floatUp linear forwards;
+  z-index: 0;
 }
 @keyframes floatUp {
-  to { transform: translateY(-120vh); opacity: 0; }
+  0%   { transform: translateY(0)    rotate(0deg)   scale(1);   opacity: 0.9; }
+  30%  { transform: translateY(-30vh) rotate(15deg) scale(1.1); opacity: 0.8; }
+  60%  { transform: translateY(-60vh) rotate(-10deg) scale(1.2); opacity: 0.5; }
+  100% { transform: translateY(-110vh) rotate(20deg) scale(0.8); opacity: 0; }
 }
 
-/* Surprise */
+/* 🔘 زرار المفاجأة */
+.surprise-btn {
+  margin-top: 22px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff4d6d, #ff1f4d);
+  color: white;
+  font-size: 16px;
+  font-family: "Cairo", sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(255,77,109,0.3);
+  display: none;
+}
+.surprise-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 28px rgba(255,77,109,0.5);
+}
+
+/* 🎁 المفاجأة */
 #surprise {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.92);
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(6px);
+  padding: 20px;
+}
+.surprise-box {
+  background: rgba(30,20,30,0.95);
+  border: 1px solid rgba(255,77,109,0.3);
+  padding: 30px 25px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.surprise-box img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 18px;
+}
+.surprise-box h2 { color: #ff4d6d; font-size: 24px; margin-bottom: 12px; }
+.surprise-box p  { color: #ddd; font-size: 16px; line-height: 1.8; margin-bottom: 18px; }
+.close-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff4d6d, #ff1f4d);
+  color: white;
+  font-size: 16px;
+  font-family: "Cairo", sans-serif;
+  cursor: pointer;
+}
+
+/* 🎵 زر الموسيقى */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 44px; height: 44px;
+  background: rgba(255,77,109,0.15);
+  border: 1px solid rgba(255,77,109,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 100;
+  transition: background 0.3s;
+  display: none;
+}
+.music-toggle:hover { background: rgba(255,77,109,0.3); }
+
+@media (max-width: 480px) {
+  .names { font-size: 26px; }
+  .time-num { font-size: 22px; }
+  .card { padding: 30px 20px; }
 }
 </style>
 </head>
-
 <body>
 
+<!-- نجوم الخلفية -->
+<canvas id="stars"></canvas>
+
+<!-- Splash -->
 <div id="splash">
   <div class="splash-title">Ahmed ❤️ Yomna</div>
-  <div class="splash-sub">كانت دعوة.. دلوقتي بقت يمنى 💙</div>
+  <div class="splash-sub">كانت دعوة.. دلوقتي بقت يمنى 😅💙</div>
   <div class="splash-dots"><span></span><span></span><span></span></div>
 </div>
 
+<!-- Main -->
 <div id="main">
   <div class="card">
     <div class="names">Ahmed ❤️ Yomna</div>
     <div class="date-label">كتب الكتاب: 26 يونيو 2026 💍</div>
 
-    <div class="message-box" id="msg">...</div>
-    <div id="msg-counter"></div>
+    <div class="countdown-box">
+      <div class="countdown-label">باقي على اليوم المنتظر</div>
+      <div class="countdown-grid" id="countdown">
+        <div class="time-unit">
+          <span class="time-num" id="cd-d">00</span>
+          <span class="time-lbl">يوم</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-unit">
+          <span class="time-num" id="cd-h">00</span>
+          <span class="time-lbl">ساعة</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-unit">
+          <span class="time-num" id="cd-m">00</span>
+          <span class="time-lbl">دقيقة</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-unit">
+          <span class="time-num" id="cd-s">00</span>
+          <span class="time-lbl">ثانية</span>
+        </div>
+      </div>
+    </div>
 
-    <button onclick="openSurprise()" id="surpriseBtn" style="display:none;">🎁 المفاجأة</button>
+    <div class="message-box">
+      <div class="message-text" id="msg">...</div>
+    </div>
+    <div class="msg-counter" id="msg-counter"></div>
+
+    <button class="surprise-btn" id="surpriseBtn" onclick="openSurprise()">🎁 المفاجأة</button>
   </div>
 </div>
 
+<!-- المفاجأة -->
 <div id="surprise">
-  <div>
-    <h2 style="color:#ff4d6d;">ليكي أنتي ❤️</h2>
-    <p style="color:white;text-align:center">
-      حب كبير مالوش وصف ❤️💍
+  <div class="surprise-box">
+    <img src="your-image.jpg" alt="Ahmed and Yomna">
+    <h2>ليكي أنتي ❤️</h2>
+    <p>
+      من أول دعوة لحد ما بقيتي يمنى ❤️<br>
+      وجودك غيّر حياتي للأحلى<br>
+      ووعد مني أكون جنبك دايمًا 💍<br>
+      ده مش يوم عادي… ده بداية عمرنا ❤️
     </p>
-    <button onclick="closeSurprise()">❤️ بحبك</button>
+    <button class="close-btn" onclick="closeSurprise()">❤️ بحبك</button>
   </div>
 </div>
+
+<!-- زر الموسيقى -->
+<div class="music-toggle" id="musicBtn" onclick="toggleMusic()">🎵</div>
+
+<!-- الموسيقى -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
 <script>
+/* =================== نجوم الخلفية =================== */
+(function() {
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  let stars = [];
 
-/* ================= TIME EGYPT FIX ================= */
-function getEgyptNow() {
-  return new Date(new Date().toLocaleString("en-US", {
-    timeZone: "Africa/Cairo"
-  }));
-}
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.position = "fixed";
+    canvas.style.top = "0"; canvas.style.left = "0";
+    canvas.style.zIndex = "0";
+    canvas.style.pointerEvents = "none";
+  }
 
-/* Splash */
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.4 + 0.3,
+        a: Math.random(),
+        spd: Math.random() * 0.5 + 0.2,
+        dir: Math.random() > 0.5 ? 1 : -1
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += 0.005 * s.spd * s.dir;
+      if (s.a > 1 || s.a < 0) s.dir *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,220,230,${s.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  resize();
+  initStars();
+  drawStars();
+  window.addEventListener("resize", () => { resize(); initStars(); });
+})();
+
+/* =================== Splash =================== */
 setTimeout(() => {
   document.getElementById("splash").classList.add("hide");
-  document.getElementById("main").style.display = "flex";
+  const main = document.getElementById("main");
+  main.style.display = "flex";
+  document.getElementById("musicBtn").style.display = "flex";
   updateMsg();
-}, 3000);
+  checkSurpriseBtn();
+}, 3200);
 
-/* Countdown */
-const eventDate = new Date("June 26, 2026 00:00:00");
+/* تشغيل الموسيقى على أول تفاعل */
+function startMusicOnce() {
+  const mus = document.getElementById("music");
+  mus.play().then(() => {
+    playing = true;
+    document.getElementById("musicBtn").textContent = "⏸️";
+  }).catch(() => {});
+  document.removeEventListener("click", startMusicOnce);
+  document.removeEventListener("touchstart", startMusicOnce);
+}
+document.addEventListener("click", startMusicOnce);
+document.addEventListener("touchstart", startMusicOnce);
+
+/* =================== العداد (توقيت مصر) =================== */
+const eventDate = new Date("2026-06-26T00:00:00+03:00");
+
+function pad(n) { return String(n).padStart(2, "0"); }
 
 function updateCountdown() {
-  const diff = eventDate - new Date();
+  const now = new Date();
+  const diff = eventDate - now;
 
-  if (diff <= 0) return;
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML =
+      '<div style="color:#ff4d6d;font-size:20px;font-weight:700;">النهارده هو اليوم المنتظر 💍</div>';
+    return;
+  }
 
   const d = Math.floor(diff / 86400000);
   const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
+  const m = Math.floor((diff % 3600000)  / 60000);
+  const s = Math.floor((diff % 60000)    / 1000);
 
-  document.getElementById("countdown")?.textContent;
+  document.getElementById("cd-d").textContent = pad(d);
+  document.getElementById("cd-h").textContent = pad(h);
+  document.getElementById("cd-m").textContent = pad(m);
+  document.getElementById("cd-s").textContent = pad(s);
 }
 
 setInterval(updateCountdown, 1000);
+updateCountdown();
 
-/* Messages */
+/* =================== الرسائل الـ 78 =================== */
 const messages = [
-  "كل يوم بحبك أكتر ❤️",
-  "انتي الأمان الحقيقي ❤️",
-  "مستني يومنا 💍",
-  "وجودك حياة ❤️",
-  "بحبك بلا نهاية 💫"
+  "كل يوم بقرب منك أكتر ❤️",
+  "انتي رفيقة غيم وزهر ولطف ☁️🌸",
+  "مستني اليوم ده من زمان 💍",
+  "بحبك أكتر كل يوم ❤️",
+  "وجودك أمان ليا ❤️",
+  "وعد مني أفرحك طول العمر ❤️",
+  "انتي بيتي اللي بحلم بيه 🏠❤️",
+  "كل ضحكة ليكي بتخلي يومي أحلى 😊",
+  "مش قادر أتخيل حياتي من غيرك 💫",
+  "انتي أحلى حاجة حصلت ليا ❤️",
+  "كل لحظة معاكي لا تتعوض 💎",
+  "انتي سبب ابتسامتي كل صبح ☀️",
+  "بفكر فيكي على طول 💭❤️",
+  "انتي الأمل اللي كنت بدور عليه 🌟",
+  "دايمًا هكون جنبك مهما حصل 🤝",
+  "قلبي بيقولك كل يوم إنه بيحبك ❤️",
+  "انتي ملكتي قلبي من أول نظرة 👑",
+  "رحلتنا بدأت.. وهتبقى أحلى رحلة 🛤️",
+  "انتي مش بس حبيبتي.. انتي صاحبتي كمان 💙",
+  "كل يوم بيعدي بيفضل فيه ذكريات حلوة معاكي 🌷",
+  "لما بضحك معاكي بحس إن الدنيا تمام ❤️",
+  "انتي الهدوء اللي بدور عليه في يومي ☁️",
+  "بحب إنك موجودة في حياتي ❤️",
+  "كل تفصيلة فيكي بتخليكي مميزة 💫",
+  "انتي معنى السعادة ليا ❤️",
+  "يومنا ده هيكون بداية عمر كامل من الحب 💍",
+  "انتي قلبي واطمئناني وبيتي ❤️",
+  "كل ما أشوفك بحس بفرحة مش عارف أوصفها 😊",
+  "وجودك في حياتي نعمة كبيرة 🤲❤️",
+  "انتي اللي بتخليني أبقى أحسن نسخة مني 🌟",
+  "معاكي الوقت بيطير وبيفضل مش كفاية ⏳❤️",
+  "بحس إن ربنا بعتك ليا بالتحديد 🤍",
+  "انتي الدفا اللي بدور عليه في الأيام الصعبة 🌿",
+  "بحبك بطريقة مش قادر أشرحها بكلام ❤️",
+  "كل كلمة حلوة في الدنيا مش هتوصف حبي ليكي 💎",
+  "انتي النور اللي بينور يومي ✨",
+  "معاكي حتى الأيام العادية بتبقى خاصة 💫",
+  "بتمنى أفضل أشوف الدنيا بعينيكي دايمًا 🌍❤️",
+  "انتي بيتي وسفري وحتتي في الدنيا 🏡",
+  "كل ضحكة منك بتتحفر في قلبي 💙",
+  "لو الدنيا اتحسبت بالبشر، انتي أحسنهم ❤️",
+  "مش بس بحبك.. بفخر بيكي كمان 🌟",
+  "وجودك بيغير لون الأيام ❤️",
+  "انتي الحلم اللي صحيت عليه وما رجعتش نمت 💫",
+  "قلبي بيرتاح لما بسمع صوتك 🎶❤️",
+  "كل لحظة انتظرت فيها كانت تستاهل ❤️",
+  "انتي اللي بتعلمني إن الحياة حلوة 🌸",
+  "بشوف في عينيكي مستقبل جميل 👁️❤️",
+  "معاكي الأيام الصعبة بتبقى أسهل 💪❤️",
+  "انتي الوعد الأجمل اللي هقدر أوفيه 💍",
+  "كل لحظة معاكي بتزيد يقيني إنك الصح ❤️",
+  "انتي بتخليني أحب نفسي أكتر 🤍",
+  "بفرح من جوايا لما حاجة تعملك بسمة 😊",
+  "ربنا يديمك ليا دايمًا يا يمنى 🤲",
+  "وجودك في حياتي معجزة صغيرة ❤️",
+  "كل يوم جديد معاكي هدية 🎁",
+  "انتي الوحيدة اللي عارفة تلاقيني في زحمة الدنيا 💫",
+  "قلبك الطيب بيخليني أحبك أكتر ❤️",
+  "انتي الخريطة اللي بتودي لكل حاجة حلوة 🗺️",
+  "مش هلاقي حد زيك في الدنيا كلها 💍",
+  "بحب لما بتكوني سعيدة.. ده بيكفيني ❤️",
+  "انتي اللي بتكملي معايا كل حاجة ناقصة 💎",
+  "ربنا يفرحنا بيبعض دايمًا 🤍",
+  "اسمك بيعمل في قلبي حاجة مش هينفع أوصفها ❤️",
+  "انتي التفصيلة الحلوة في كل يوم من أيامي 🌷",
+  "معاكي الدنيا بتبقى أوسع وأحلى 🌍❤️",
+  "بتمنى أفضل سبب في بسمتك للأبد 😊",
+  "انتي اللي بتخلي البيت بيت ❤️",
+  "حبك بيخليني أشجع وأقدر على أي حاجة 💪❤️",
+  "كل دعوة بادعيها فيها اسمك 🤲",
+  "انتي مش حبيبتي بس.. انتي نصفي التاني 💞",
+  "مع كل شروق شمس بحمد ربنا عليكي ☀️❤️",
+  "انتي الكنز اللي لقيته من غير ما أدور 💎",
+  "بحبك بكرة زي ما بحبك النهارده أو أكتر ❤️",
+  "انتي الكلمة اللي بدور عليها في كل جملة حلوة 💫",
+  "قلبي بيتكلم عنك حتى لما بسكت 🤍",
+  "الحياة معاكي أحلى في كل تفصيلة ❤️",
+  "مستنياكي يا يمنى.. عمرنا بدأ 💍❤️"
 ];
 
-const startDate = new Date("April 8, 2026");
+const startDate = new Date("2026-04-08T00:00:00+03:00");
 let currentMsgIndex = 0;
 
 function updateMsg() {
-  const egyptNow = getEgyptNow();
-
-  const dayDiff = Math.floor((egyptNow - startDate) / 86400000);
+  const now = new Date();
+  const dayDiff = Math.floor((now - startDate) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
-
-  document.getElementById("msg").textContent = messages[currentMsgIndex];
-
+  const el = document.getElementById("msg");
+  el.style.animation = "none";
+  el.offsetHeight;
+  el.style.animation = "msgFade 0.5s ease";
+  el.textContent = messages[currentMsgIndex];
   document.getElementById("msg-counter").textContent =
-    `رسالة ${currentMsgIndex + 1} من ${messages.length}`;
+    `رسالة ${currentMsgIndex + 1} من ${messages.length} 💌`;
 }
 
 setInterval(updateMsg, 3600000);
 
-/* Hearts */
-setInterval(() => {
+/* =================== قلوب عائمة =================== */
+const hearts = ["❤️","🩷","💕","💗","💞","💖","🌹","✨"];
+
+function spawnHeart() {
   const h = document.createElement("div");
   h.className = "heart";
-  h.textContent = "❤️";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = (3 + Math.random() * 3) + "s";
+  h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  h.style.left = (Math.random() * 95) + "vw";
+  h.style.fontSize = (14 + Math.random() * 10) + "px";
+  const dur = 4 + Math.random() * 3;
+  h.style.animationDuration = dur + "s";
   document.body.appendChild(h);
-  setTimeout(() => h.remove(), 6000);
-}, 1500);
+  setTimeout(() => h.remove(), dur * 1000);
+}
+setInterval(spawnHeart, 1800);
 
-/* Surprise */
+/* =================== الموسيقى =================== */
+let playing = false;
+function toggleMusic() {
+  const mus = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+  if (playing) { mus.pause(); btn.textContent = "🎵"; playing = false; }
+  else          { mus.play().catch(()=>{}); btn.textContent = "⏸️"; playing = true; }
+}
+
+/* =================== المفاجأة =================== */
+function checkSurpriseBtn() {
+  const now = new Date();
+  const egyptNow = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Cairo" }));
+  if (egyptNow.getDate() === 26 && egyptNow.getMonth() === 5 && egyptNow.getFullYear() === 2026) {
+    document.getElementById("surpriseBtn").style.display = "inline-block";
+  }
+}
+
 function openSurprise() {
   document.getElementById("surprise").style.display = "flex";
 }
@@ -217,21 +623,7 @@ function closeSurprise() {
   document.getElementById("surprise").style.display = "none";
 }
 
-/* Surprise Button Day Check (EGYPT FIXED) */
-function checkSurpriseBtn() {
-  const egyptNow = getEgyptNow();
-
-  if (
-    egyptNow.getDate() === 26 &&
-    egyptNow.getMonth() === 5 &&
-    egyptNow.getFullYear() === 2026
-  ) {
-    document.getElementById("surpriseBtn").style.display = "inline-block";
-  }
-}
-
 setInterval(checkSurpriseBtn, 10000);
-
 </script>
 </body>
 </html>
