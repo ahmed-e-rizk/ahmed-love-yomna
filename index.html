@@ -17,7 +17,6 @@ body {
   min-height: 100vh;
 }
 
-/* ✨ شاشة البداية */
 #splash {
   position: fixed;
   inset: 0;
@@ -63,7 +62,6 @@ body {
   40% { opacity: 1; transform: scale(1.2); }
 }
 
-/* 🌙 الخلفية النجمية */
 #stars {
   position: fixed;
   inset: 0;
@@ -72,7 +70,6 @@ body {
   overflow: hidden;
 }
 
-/* 🎬 المحتوى */
 #main {
   position: relative;
   z-index: 1;
@@ -89,7 +86,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 💳 الكارت الرئيسي */
 .card {
   background: rgba(30, 20, 30, 0.85);
   border: 1px solid rgba(255, 77, 109, 0.25);
@@ -111,7 +107,6 @@ body {
   z-index: -1;
 }
 
-/* 💞 الأسماء */
 .names {
   font-size: 32px;
   font-weight: 700;
@@ -125,7 +120,6 @@ body {
   margin-bottom: 24px;
 }
 
-/* 💍 العداد */
 .countdown-box {
   background: rgba(255, 77, 109, 0.08);
   border: 1px solid rgba(255, 77, 109, 0.2);
@@ -169,7 +163,6 @@ body {
   margin-top: 3px;
 }
 
-/* 💌 الرسالة */
 .message-box {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
@@ -192,14 +185,12 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 🔢 رقم الرسالة */
 .msg-counter {
   font-size: 12px;
   color: #555;
   margin-top: 8px;
 }
 
-/* ❤️ قلوب عائمة */
 .heart {
   position: fixed;
   bottom: -30px;
@@ -209,13 +200,12 @@ body {
   z-index: 0;
 }
 @keyframes floatUp {
-  0%   { transform: translateY(0)    rotate(0deg)   scale(1);   opacity: 0.9; }
-  30%  { transform: translateY(-30vh) rotate(15deg) scale(1.1); opacity: 0.8; }
+  0%   { transform: translateY(0)     rotate(0deg)   scale(1);   opacity: 0.9; }
+  30%  { transform: translateY(-30vh) rotate(15deg)  scale(1.1); opacity: 0.8; }
   60%  { transform: translateY(-60vh) rotate(-10deg) scale(1.2); opacity: 0.5; }
   100% { transform: translateY(-110vh) rotate(20deg) scale(0.8); opacity: 0; }
 }
 
-/* 🔘 زرار المفاجأة */
 .surprise-btn {
   margin-top: 22px;
   padding: 12px 30px;
@@ -235,7 +225,6 @@ body {
   box-shadow: 0 6px 28px rgba(255,77,109,0.5);
 }
 
-/* 🎁 المفاجأة */
 #surprise {
   position: fixed;
   inset: 0;
@@ -279,7 +268,6 @@ body {
   cursor: pointer;
 }
 
-/* 🎵 زر الموسيقى */
 .music-toggle {
   position: fixed;
   bottom: 24px;
@@ -288,14 +276,13 @@ body {
   background: rgba(255,77,109,0.15);
   border: 1px solid rgba(255,77,109,0.3);
   border-radius: 50%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 20px;
   z-index: 100;
   transition: background 0.3s;
-  display: none;
 }
 .music-toggle:hover { background: rgba(255,77,109,0.3); }
 
@@ -308,17 +295,14 @@ body {
 </head>
 <body>
 
-<!-- نجوم الخلفية -->
 <canvas id="stars"></canvas>
 
-<!-- Splash -->
 <div id="splash">
   <div class="splash-title">Ahmed ❤️ Yomna</div>
   <div class="splash-sub">كانت دعوة.. دلوقتي بقت يمنى 😅💙</div>
   <div class="splash-dots"><span></span><span></span><span></span></div>
 </div>
 
-<!-- Main -->
 <div id="main">
   <div class="card">
     <div class="names">Ahmed ❤️ Yomna</div>
@@ -358,7 +342,6 @@ body {
   </div>
 </div>
 
-<!-- المفاجأة -->
 <div id="surprise">
   <div class="surprise-box">
     <img src="your-image.jpg" alt="Ahmed and Yomna">
@@ -373,16 +356,19 @@ body {
   </div>
 </div>
 
-<!-- زر الموسيقى -->
 <div class="music-toggle" id="musicBtn" onclick="toggleMusic()">🎵</div>
 
-<!-- الموسيقى -->
 <audio id="music" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* =================== نجوم الخلفية =================== */
+/* ===== helper: الوقت الحالي بتوقيت مصر ===== */
+function egyptNow() {
+  return new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Cairo" }));
+}
+
+/* ===== نجوم الخلفية ===== */
 (function() {
   const canvas = document.getElementById("stars");
   const ctx = canvas.getContext("2d");
@@ -430,7 +416,7 @@ body {
   window.addEventListener("resize", () => { resize(); initStars(); });
 })();
 
-/* =================== Splash =================== */
+/* ===== Splash ===== */
 setTimeout(() => {
   document.getElementById("splash").classList.add("hide");
   const main = document.getElementById("main");
@@ -440,7 +426,7 @@ setTimeout(() => {
   checkSurpriseBtn();
 }, 3200);
 
-/* تشغيل الموسيقى على أول تفاعل */
+/* ===== موسيقى على أول تفاعل ===== */
 function startMusicOnce() {
   const mus = document.getElementById("music");
   mus.play().then(() => {
@@ -453,13 +439,14 @@ function startMusicOnce() {
 document.addEventListener("click", startMusicOnce);
 document.addEventListener("touchstart", startMusicOnce);
 
-/* =================== العداد (توقيت مصر) =================== */
-const eventDate = new Date("2026-06-26T00:00:00+03:00");
+/* ===== العداد ===== */
+// غيّر الوقت 20:00:00 على حسب ميعاد الفرح الفعلي
+const eventDate = new Date("2026-06-26T20:00:00+03:00");
 
 function pad(n) { return String(n).padStart(2, "0"); }
 
 function updateCountdown() {
-  const now = new Date();
+  const now  = new Date();
   const diff = eventDate - now;
 
   if (diff <= 0) {
@@ -482,7 +469,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-/* =================== الرسائل الـ 78 =================== */
+/* ===== الرسائل ===== */
 const messages = [
   "كل يوم بقرب منك أكتر ❤️",
   "انتي رفيقة غيم وزهر ولطف ☁️🌸",
@@ -564,13 +551,25 @@ const messages = [
   "مستنياكي يا يمنى.. عمرنا بدأ 💍❤️"
 ];
 
+// تاريخ بداية الرسائل بتوقيت مصر
 const startDate = new Date("2026-04-08T00:00:00+03:00");
 let currentMsgIndex = 0;
 
 function updateMsg() {
-  const now = new Date();
-  const dayDiff = Math.floor((now - startDate) / 86400000);
+  const eg = egyptNow();
+
+  // يوم النهارده بتوقيت مصر (بدون ساعات)
+  const todayEgypt = new Date(eg.getFullYear(), eg.getMonth(), eg.getDate());
+
+  // يوم البداية بتوقيت مصر (بدون ساعات)
+  const startEgypt = new Date(
+    new Date(startDate.toLocaleString("en-US", { timeZone: "Africa/Cairo" }))
+  );
+  startEgypt.setHours(0, 0, 0, 0);
+
+  const dayDiff = Math.floor((todayEgypt - startEgypt) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
+
   const el = document.getElementById("msg");
   el.style.animation = "none";
   el.offsetHeight;
@@ -580,9 +579,10 @@ function updateMsg() {
     `رسالة ${currentMsgIndex + 1} من ${messages.length} 💌`;
 }
 
+// تحديث الرسالة كل ساعة
 setInterval(updateMsg, 3600000);
 
-/* =================== قلوب عائمة =================== */
+/* ===== قلوب عائمة ===== */
 const hearts = ["❤️","🩷","💕","💗","💞","💖","🌹","✨"];
 
 function spawnHeart() {
@@ -598,30 +598,25 @@ function spawnHeart() {
 }
 setInterval(spawnHeart, 1800);
 
-/* =================== الموسيقى =================== */
+/* ===== الموسيقى ===== */
 let playing = false;
 function toggleMusic() {
   const mus = document.getElementById("music");
   const btn = document.getElementById("musicBtn");
   if (playing) { mus.pause(); btn.textContent = "🎵"; playing = false; }
-  else          { mus.play().catch(()=>{}); btn.textContent = "⏸️"; playing = true; }
+  else         { mus.play().catch(()=>{}); btn.textContent = "⏸️"; playing = true; }
 }
 
-/* =================== المفاجأة =================== */
+/* ===== المفاجأة — تظهر يوم 26 يونيو بتوقيت مصر ===== */
 function checkSurpriseBtn() {
-  const now = new Date();
-  const egyptNow = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Cairo" }));
-  if (egyptNow.getDate() === 26 && egyptNow.getMonth() === 5 && egyptNow.getFullYear() === 2026) {
+  const eg = egyptNow();
+  if (eg.getDate() === 26 && eg.getMonth() === 5 && eg.getFullYear() === 2026) {
     document.getElementById("surpriseBtn").style.display = "inline-block";
   }
 }
 
-function openSurprise() {
-  document.getElementById("surprise").style.display = "flex";
-}
-function closeSurprise() {
-  document.getElementById("surprise").style.display = "none";
-}
+function openSurprise()  { document.getElementById("surprise").style.display = "flex"; }
+function closeSurprise() { document.getElementById("surprise").style.display = "none"; }
 
 setInterval(checkSurpriseBtn, 10000);
 </script>
