@@ -345,7 +345,7 @@ function pad(n) { return String(n).padStart(2, "0"); }
 
 function updateCountdown() {
    const now  = egyptNow();
-  const event = new Date(2026, 5, 26, 1, 0, 0); /* 26 يونيو 12 الليل */
+  const event = new Date(2026, 5, 26, 0, 0, 0); /* 26 يونيو 12 الليل */
   
   const nowFlat   = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
                              now.getHours(), now.getMinutes(), now.getSeconds());
