@@ -345,7 +345,7 @@ function pad(n) { return String(n).padStart(2, "0"); }
 
 function updateCountdown() {
    const now  = egyptNow();
-  const event = new Date(2026, 5, 26, 0, 0, 0); /* 26 يونيو 12 الليل */
+  const event = new Date(2026, 5, 26, 1, 0, 0); /* 26 يونيو 12 الليل */
   
   const nowFlat   = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
                              now.getHours(), now.getMinutes(), now.getSeconds());
@@ -452,6 +452,7 @@ const messages = [
   "مستنياكي يا يمنى.. عمرنا بدأ 💍❤️"
 ];
 
+
 let currentMsgIndex = 0;
 
 function updateMsg() {
@@ -461,7 +462,7 @@ function updateMsg() {
   const todayEgypt = new Date(eg.getFullYear(), eg.getMonth(), eg.getDate());
 
   /* يوم البداية: 8 أبريل 2026 بتوقيت مصر */
-  const startEgypt = new Date(2026, 3, 8); /* الشهر 3 = أبريل (0-based) */
+  const startEgypt = new Date(2026, 3, 6); /* الشهر 3 = أبريل (0-based) */
 
   const dayDiff = Math.floor((todayEgypt - startEgypt) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
