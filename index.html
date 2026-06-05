@@ -471,7 +471,7 @@ function updateMsg() {
   const todayEgypt = new Date(eg.getFullYear(), eg.getMonth(), eg.getDate());
 
   /* يوم البداية: 8 أبريل 2026 بتوقيت مصر */
-  const startEgypt = new Date(2026, 3, 5); /* الشهر 3 = أبريل (0-based) */
+  const startEgypt = new Date(2026, 3, 9); /* الشهر 3 = أبريل (0-based) */
 
   const dayDiff = Math.floor((todayEgypt - startEgypt) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
