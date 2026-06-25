@@ -144,6 +144,9 @@ body {
   padding: 30px 25px; border-radius: 24px;
   width: 100%; max-width: 420px; text-align: center;
   animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  max-height: 85vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 @keyframes popIn {
   from { transform: scale(0.7); opacity: 0; }
@@ -156,6 +159,8 @@ body {
   padding: 12px 28px; border: none; border-radius: 12px;
   background: linear-gradient(135deg, #ff4d6d, #ff1f4d);
   color: white; font-size: 16px; font-family: "Cairo", sans-serif; cursor: pointer;
+  position: sticky;
+  bottom: 0;
 }
 
 .music-toggle {
@@ -243,14 +248,11 @@ body {
 
 <script>
 /* ===== helper: الوقت الحالي بتوقيت مصر ===== */
-/* Africa/Cairo بتتعامل مع التوقيت الصيفي والشتوي أوتوماتيك */
 function egyptNow() {
   return new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Cairo" }));
 }
 
-/* ===== helper: يوم محدد بتوقيت مصر (بدون ساعات) ===== */
 function egyptDate(year, month, day) {
-  /* month هنا 1-based (1=يناير ... 12=ديسمبر) */
   const eg = egyptNow();
   const d  = new Date(eg.getFullYear(), eg.getMonth(), eg.getDate());
   d.setFullYear(year);
@@ -331,32 +333,12 @@ document.addEventListener("click",      startMusicOnce);
 document.addEventListener("touchstart", startMusicOnce);
 
 /* ===== العداد ===== */
-/* الهدف: 26 يونيو 2026 الساعة 12 الليل بتوقيت مصر */
-function getEventDate() {
-  const eg = egyptNow();
-  /* نبني التاريخ كـ local date بدون أي offset */
-  return new Date(eg.getFullYear() <= 2026
-    ? new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Cairo" })).constructor.call(
-        null,
-        new Date("2026-06-26 00:00:00").toLocaleString("en-US", { timeZone: "UTC" })
-      )
-    : null
-  );
-}
-
-/*
-  الطريقة الأبسط والأضمن:
-  نحسب الفرق بين دلوقتي (UTC) وبين 26/6/2026 12 الليل بتوقيت مصر.
-  مصر في يونيو = UTC+3، يعني 12 الليل مصر = 21:00 UTC في 25/6/2026
-*/
-const eventDateUTC = Date.UTC(2026, 5, 25, 20, 0, 0); /* 26 يونيو 12 الليل بتوقيت مصر */
-
 function pad(n) { return String(n).padStart(2, "0"); }
 
 function updateCountdown() {
    const now  = egyptNow();
-  const event = new Date(2026, 5, 26, 0, 0, 0); /* 26 يونيو 12 الليل */
-  
+  const event = new Date(2026, 5, 26, 0, 0, 0);
+
   const nowFlat   = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
                              now.getHours(), now.getMinutes(), now.getSeconds());
   const diff = event - nowFlat;
@@ -470,11 +452,8 @@ let currentMsgIndex = 0;
 function updateMsg() {
   const eg = egyptNow();
 
-  /* يوم النهارده بتوقيت مصر (بدون ساعات) */
   const todayEgypt = new Date(eg.getFullYear(), eg.getMonth(), eg.getDate());
-
-  /* يوم البداية: 8 أبريل 2026 بتوقيت مصر */
-  const startEgypt = new Date(2026, 3, 7); /* الشهر 3 = أبريل (0-based) */
+  const startEgypt = new Date(2026, 3, 7);
 
   const dayDiff = Math.floor((todayEgypt - startEgypt) / 86400000);
   currentMsgIndex = Math.abs(dayDiff) % messages.length;
@@ -488,7 +467,6 @@ function updateMsg() {
     `رسالة ${currentMsgIndex + 1} من ${messages.length} 💌`;
 }
 
-/* تحديث الرسالة كل ساعة */
 setInterval(updateMsg, 3600000);
 
 /* ===== قلوب عائمة ===== */
